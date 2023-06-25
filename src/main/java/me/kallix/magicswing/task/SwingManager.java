@@ -7,7 +7,7 @@ import me.kallix.magicswing.utils.MathUtils;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.FishHook;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -22,7 +22,7 @@ public final class SwingManager extends BukkitRunnable {
 
     private final Config config;
     private final Player player;
-    private final FishHook hook;
+    private final Entity hook;
     private final Location blockLoc;
 
     private int ticks = 0;
@@ -31,7 +31,7 @@ public final class SwingManager extends BukkitRunnable {
         return swinging.containsKey(player);
     }
 
-    public static void toggle(Player player, FishHook hook, Block block) {
+    public static void toggle(Player player, Entity hook, Block block) {
         if (!isSwinging(player)) {
             MagicSwing plugin = MagicSwing.getInstance();
             SwingManager runnable = new SwingManager(plugin.getConfiguration(), player, hook, block.getLocation());

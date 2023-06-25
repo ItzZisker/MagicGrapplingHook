@@ -1,12 +1,13 @@
 package me.kallix.magicswing;
 
+import lombok.SneakyThrows;
 import me.kallix.magicswing.task.SwingManager;
 import me.kallix.magicswing.utils.ItemUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.FishHook;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,13 +17,23 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.bukkit.event.player.PlayerFishEvent.State;
-
 public final class Listeners implements Listener {
+
+    private static final Method METHOD_GET_HOOK;
+
+    static {
+        try {
+            METHOD_GET_HOOK = org.bukkit.event.player.PlayerFishEvent.class.getDeclaredMethod("getHook");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        METHOD_GET_HOOK.setAccessible(true);
+    }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
@@ -50,13 +61,14 @@ public final class Listeners implements Listener {
     }
 
     @EventHandler
+    @SneakyThrows
     public void onFish(PlayerFishEvent event) {
 
-        if (event.getState() == State.FISHING || !ItemUtils.isSwingItem(event.getPlayer().getItemInHand())) {
+        if (event.getState().toString().equals("FISHING") || !ItemUtils.isSwingItem(event.getPlayer().getItemInHand())) {
             return;
         }
 
-        FishHook hook = event.getHook();
+        Entity hook = (Entity) METHOD_GET_HOOK.invoke(event);
         Location loc = hook.getLocation();
 
         World world = loc.getWorld();
