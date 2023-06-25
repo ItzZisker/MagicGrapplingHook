@@ -1,0 +1,14 @@
+name: MagicSwing
+main: me.kallix.magicswing.MagicSwing
+version: 1.0
+api-version: 1.8
+authors: [ Kallix_ ]
+description: A swinging plugin
+commands:
+  magicswing:
+    usage: '§cUsage: /swing <give/reload> <params...>'
+    description: Main command of Magic swing plugin
+    aliases:
+      - ms
+      - swing
+      - mswing

@@ -1,0 +1,12 @@
+item:
+  name: '&6&lMAGIC SWING HOOK'
+  lore:
+    - '&7Cast and enjoy the momentum'
+    - '&7Fly up and swing like spider-man!'
+physics:
+  minDistance: 2
+  maxDistance: 20
+  acceleration: 0.4
+  launch: 1.35
+  gravity: 0.125
+  force: 0.04
