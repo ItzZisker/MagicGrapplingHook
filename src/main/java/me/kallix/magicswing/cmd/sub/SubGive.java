@@ -16,7 +16,7 @@ public final class SubGive extends SubCommand {
     @Override
     public void execute(Player player, String[] args) {
         if (args.length == 2) {
-            Player target = Bukkit.getPlayer(args[0]);
+            Player target = Bukkit.getPlayer(args[1]);
 
             if (target != null && target.isOnline()) {
                 PlayerInventory inv = target.getInventory();
